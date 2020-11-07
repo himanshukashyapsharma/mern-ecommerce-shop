@@ -1,13 +1,18 @@
 import React,{useState,useEffect} from 'react'
 import {useDispatch} from 'react-redux'
-import {getCartItems} from '../../../_actions/user_actions'
+import {getCartItems, removeFromCart, onSuccessBuy} from '../../../_actions/user_actions'
 import UserCardBlock from './Sections/UserCardBlock'
 import {Result,Empty} from 'antd'
+import Paypal from '../../utils/Paypal'
+import Axios from 'axios'
 
 function CartPage(props) {
 
-    const [Total,setTotal] = useState(0)
     const dispatch = useDispatch()
+
+    const [Total,setTotal] = useState(0)
+    const [ShowTotal, setShowTotal] = useState(false)
+    const [ShowSuccess, setShowSuccess] = useState(false)
 
     // to fetch data of all the items in cart
     useEffect(() => {
@@ -26,7 +31,10 @@ function CartPage(props) {
     useEffect(() => {
         if(props.user.cartDetail && props.user.cartDetail.length > 0) {
             calculateTotal(props.user.cartDetail)   
-        } 
+        } else {
+            setTotal(0)
+            setShowTotal(false)
+        }
     },[props.user.cartDetail])
 
     function calculateTotal(cartDetail){
@@ -36,39 +44,90 @@ function CartPage(props) {
             total += item.price * item.quantity
         })
         setTotal(total)
+        setShowTotal(true)
+    }
+
+    function handleRemoveFromCart(productId){
+        dispatch(removeFromCart(productId))
+    }
+
+    function transactionSuccess(data){
+
+        let variables = {
+            cartDetail: props.user.cartDetail,
+            paymentData: data
+        }
+
+        Axios.post('/api/users/successBuy', variables)
+        .then(response => {
+            console.log(response.data)
+            if(response.data.success){
+                setShowSuccess(true)
+                setShowTotal(false)
+
+                dispatch(onSuccessBuy({
+                    cart: response.data.cart,
+                    cartDetail: response.data.cartDetail
+                }))
+
+            } else {
+                alert('Failed to register Payment to Database')
+            }
+        })
+    }
+
+    function transactionError(){
+        console.log('paypal error')
+    }
+
+    function transactionCancelled(){
+        console.log('Transaction cancelled')
     }
 
     return (
-        <div style={{widht: '85%', margin: '3rem auto'}}>
+        <div style={{width: '85%', margin: '3rem auto'}}>
             <h1>My Cart</h1>
             <div>
                 {props.user.cartDetail && props.user.cartDetail.length > 0 &&
                     <UserCardBlock 
                         cartItems={props.user.cartDetail}
+                        handleRemoveFromCart={handleRemoveFromCart}
                     />
                 }
-                <div style={{marginTop: '3rem'}}>
-                    <h2>Total amount: {Total}$</h2>
-                </div>
-
-                <Result 
-                    status="success" 
-                    title="Successfully Purchased Items"
-                />
-
-                <div style={{
-                    width: '100%', display: 'flex', flexDirection: 'column',
-                    justifyContent: 'center'
-                }}>
-                    <br/>
-                    <Empty description={false}/>
-                    <p>No Items In The Cart</p>
-                </div>
-
-
-                 
+                
+                {ShowTotal ?
+                    <div style={{marginTop: '3rem'}}>
+                        <h2>Total amount: {Total}$</h2>
+                    </div>
+                    :   
+                    ShowSuccess ?
+                        <Result 
+                            status="success" 
+                            title="Successfully Purchased Items"
+                        /> 
+                        :
+                        <div style={{
+                            width: '100%', display: 'flex', flexDirection: 'column',
+                            justifyContent: 'center', textAlign: 'center'
+                        }}>
+                            <br/>
+                            <Empty description={false}/>
+                            <p>No Items In The Cart</p>
+                        </div>
+                }
 
             </div>
+
+            { ShowTotal && 
+                <Paypal
+                    toPay={Total}
+                    onSuccess={transactionSuccess}
+                    transactionError={transactionError}
+                    transactionCancelled={transactionCancelled}
+                />
+            }
+            
+
         </div>
     )
 }

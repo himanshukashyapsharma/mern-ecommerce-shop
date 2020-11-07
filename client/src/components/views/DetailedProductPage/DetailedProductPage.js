@@ -10,7 +10,7 @@ import {useDispatch} from 'react-redux'
 function DetailedProductPage(props) {
 
     const dispatch = useDispatch()
-    const [Product, setProduct] = useState()
+    const [Product, setProduct] = useState("")
     const productId = props.match.params.productId
 
     useEffect(() => {
@@ -19,6 +19,7 @@ function DetailedProductPage(props) {
         .then(response =>{
             if(response.data.success){
                 setProduct(response.data.product)
+                console.log(response.data.product)
             }else{
                 alert('failed to fetch product data')
             }
@@ -32,7 +33,7 @@ function DetailedProductPage(props) {
 
     return (
         <React.Fragment>
-            {Product !== undefined && 
+            {Product !== "" && 
                 <div className="postPage" style={{width: '100%', padding: '3rem 4rem'}}>   
                     <div style={{display: 'flex', justifyContent: 'center'}} >
                         <h1>{Product.title}</h1>

@@ -109,8 +109,9 @@ router.get('/products_by_id',(req,res) => {
     Product.find({"_id" :{$in: productIds}})
     .populate('writer')
     .exec((err,product) => {
-        if(err) return res.status(400).send(err)
-        res.status(200).json(product)
+        if(err) return res.status(400).json({success: false, err})
+        if(type === "array") res.status(200).json({success: true, product})
+        if(type === "single") res.status(200).json({success: true, product: product[0]})
     })
 })
 

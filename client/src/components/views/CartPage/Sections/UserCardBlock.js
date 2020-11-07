@@ -25,7 +25,7 @@ function UserCardBlock(props) {
                                             </td>
                                             <td>{item.quantity}</td>
                                             <td>{item.price}$</td>
-                                            <td><button>Remove</button></td>
+                                            <td><button onClick={() => { props.handleRemoveFromCart(item._id)}}>Remove</button></td>
                                         </tr>
                                         
                                     </React.Fragment>

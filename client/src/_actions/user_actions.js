@@ -5,7 +5,9 @@ import {
     AUTH_USER,
     LOGOUT_USER,
     ADD_TO_CART_USER,
-    GET_CART_ITEMS_USER
+    GET_CART_ITEMS_USER,
+    REMOVE_CART_ITEM_USER,
+    ON_SUCCESS_BUY_USER
 } from './types';
 import { USER_SERVER } from '../components/Config.js';
 
@@ -49,6 +51,9 @@ export function logoutUser(){
     }
 }
 
+
+// Add an item to cart
+
 export function addToCart(_id){
     const request = axios.post(`${USER_SERVER}/addToCart?productId=${_id}&type=single`)
     .then(response => response.data)
@@ -59,18 +64,40 @@ export function addToCart(_id){
     }
 }
 
-export function getCartItems(cartItemIds, userCart){
-    const request = axios.get(`/api/product/products_by_id?id=${cartItemIds}&type=array`)
+// Remove an item from cart
+
+export function removeFromCart(_id){
+    const request = axios.get(`${USER_SERVER}/removeFromCart?productId=${_id}`)
     .then(response => {
-        
-        userCart.forEach(cartItem => {
-            response.data.forEach((productDetail,i) => {
-                if(cartItem.id === productDetail._id){
-                    response.data[i].quantity = cartItem.quantity
+        response.data.cart.forEach(item => {
+            response.data.product.forEach((productItem,i) => {
+                if(item.id == productItem._id){
+                    response.data.product[i].quantity = item.quantity
                 }
             })
         })
         return response.data
+    })
+
+    return {
+        type: REMOVE_CART_ITEM_USER,
+        payload: request
+    }
+
+}
+
+export function getCartItems(cartItemIds, userCart){
+    const request = axios.get(`/api/product/products_by_id?id=${cartItemIds}&type=array`)
+    .then(response => {
+        
+        userCart.forEach(cartItem => {                               
+            response.data.product.forEach((productDetail,i) => {              
+                if(cartItem.id === productDetail._id){
+                    response.data.product[i].quantity = cartItem.quantity
+                }
+            })
+        })
+        return response.data.product
     })
 
 
@@ -78,5 +105,12 @@ export function getCartItems(cartItemIds, userCart){
     return {
         type: GET_CART_ITEMS_USER,
         payload: request
+    }
+}
+
+export function onSuccessBuy(data){
+    return {
+        type: ON_SUCCESS_BUY_USER,
+        payload: data
     }
 }
