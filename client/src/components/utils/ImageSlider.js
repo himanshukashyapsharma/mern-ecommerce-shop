@@ -7,7 +7,7 @@ function ImageSlider({images}){
             <Carousel autoplay>
                 {images.map((image,index)=> (
                     <div key={index}>
-                        <img style={{width: '100%',maxHeight: '150px'}} src={`http://localhost:5000/${image}`} alt="ProductImage" />
+                        <img style={{width: '100%',maxHeight: '150px'}} src={`https://mern-ecommerce-shop.herokuapp.com/${image}`} alt="ProductImage" />
                     </div>
                 ))
 

@@ -20,7 +20,7 @@ function UserCardBlock(props) {
                                                 <img 
                                                     style={{width: '70px'}} 
                                                     alt={`${item.title}`}
-                                                    src={`http://localhost:5000/${item.images[0]}`} 
+                                                    src={`https://mern-ecommerce-shop.herokuapp.com/${item.images[0]}`} 
                                                 />
                                             </td>
                                             <td>{item.quantity}</td>

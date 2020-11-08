@@ -52,7 +52,7 @@ function FileUpload(props) {
             <div style={{display: 'flex',width: '300px',height: '240px', overflowX: 'scroll'}}>
                 {images.map((image,index) => (
                     <div key={index} onClick={()=> onDelete(index)}>
-                        <img style={{winWidth: '300px',width: '300px',height: '240px' }} src={`http://localhost:5000/${image}`} alt={`${index}`} />
+                        <img style={{winWidth: '300px',width: '300px',height: '240px' }} src={`https://mern-ecommerce-shop.herokuapp.com/${image}`} alt={`${index}`} />
                     </div>
                 )
                 )}
