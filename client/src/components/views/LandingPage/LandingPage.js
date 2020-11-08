@@ -14,7 +14,7 @@ function LandingPage() {
 
     const [Products,setProducts] = useState([])
     const [Skip,setSkip] = useState(0)
-    const [Limit,setLimit] = useState(4)
+    const [Limit] = useState(8)
     const [PostSize, setPostSize] = useState(0)
     const [Filters, setFilters] = useState({
         continent: [],
@@ -28,7 +28,7 @@ function LandingPage() {
             limit: Limit
         }
         getProducts(variables)
-    },[])
+    },[Skip,Limit])
 
     function getProducts(variables,loadMore = false){
         Axios.post('/api/product/getProducts', variables)
@@ -85,7 +85,7 @@ function LandingPage() {
         const newFilters = {...Filters}
         newFilters[category] = filters
 
-        if(category == "price"){
+        if(category === "price"){
             let priceValues = handlePrice(filters)
             newFilters[category] = priceValues
         }

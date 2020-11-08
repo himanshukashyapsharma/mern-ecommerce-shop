@@ -26,7 +26,7 @@ function CartPage(props) {
             dispatch(getCartItems(cartItems,props.user.userData.cart))
             }
         }
-    },[props.user.userData])
+    },[props.user.userData,dispatch])
 
     useEffect(() => {
         if(props.user.cartDetail && props.user.cartDetail.length > 0) {
@@ -39,8 +39,7 @@ function CartPage(props) {
 
     function calculateTotal(cartDetail){
         let total = 0
-        cartDetail.forEach((item,index) => {
-            console.log(index, item.price)
+        cartDetail.forEach((item) => {
             total += item.price * item.quantity
         })
         setTotal(total)

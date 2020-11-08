@@ -19,7 +19,7 @@ function UserCardBlock(props) {
                                             <td>
                                                 <img 
                                                     style={{width: '70px'}} 
-                                                    alt="product image"
+                                                    alt={`${item.title}`}
                                                     src={`http://localhost:5000/${item.images[0]}`} 
                                                 />
                                             </td>

@@ -71,7 +71,7 @@ export function removeFromCart(_id){
     .then(response => {
         response.data.cart.forEach(item => {
             response.data.product.forEach((productItem,i) => {
-                if(item.id == productItem._id){
+                if(item.id === productItem._id){
                     response.data.product[i].quantity = item.quantity
                 }
             })

@@ -1,7 +1,7 @@
 import React,{useState} from "react"
 import Dropzone from "react-dropzone"
 import Axios from "axios"
-import {Icon} from "antd"
+// import {Icon} from "antd"
 
 function FileUpload(props) {
 
@@ -14,8 +14,8 @@ function FileUpload(props) {
         }
         formData.append("file",files[0])
 
-        Axios.post('/api/product/uploadImage',formData ,config).
-        then(response => {
+        Axios.post('/api/product/uploadImage',formData ,config)
+        .then(response => {
             if(response.data.success){
                 setImages([...images, response.data.image])
                 props.refreshFunction([...images, response.data.image])
@@ -52,7 +52,7 @@ function FileUpload(props) {
             <div style={{display: 'flex',width: '300px',height: '240px', overflowX: 'scroll'}}>
                 {images.map((image,index) => (
                     <div key={index} onClick={()=> onDelete(index)}>
-                        <img style={{winWidth: '300px',width: '300px',height: '240px' }} src={`http://localhost:5000/${image}`} alt={`production-image-${index}`} />
+                        <img style={{winWidth: '300px',width: '300px',height: '240px' }} src={`http://localhost:5000/${image}`} alt={`${index}`} />
                     </div>
                 )
                 )}

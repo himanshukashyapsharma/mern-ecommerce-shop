@@ -1,8 +1,7 @@
 import React,{useState} from "react"
-import {Typography,Button,Form,message,Input,Icon} from "antd"
+import {Typography,Button,Form,Input} from "antd"
 import FileUpload from "../../utils/FileUpload"
 import Axios from "axios"
-import { OmitProps } from "antd/lib/transfer/renderListBody"
 
 const {Title} = Typography
 const {TextArea} = Input
@@ -61,8 +60,8 @@ function UploadProductPage(props){
             continents: continentValue
          }
 
-        Axios.post('/api/product/uploadProduct',variables).
-        then(response => {
+        Axios.post('/api/product/uploadProduct',variables)
+        .then(response => {
             if(response.data.success){
                 alert("Product Successfully Uploaded")
                 props.history.push('/') // part of react router - loads page at route '/'
