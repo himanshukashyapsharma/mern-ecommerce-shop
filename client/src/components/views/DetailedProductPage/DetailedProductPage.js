@@ -14,7 +14,6 @@ function DetailedProductPage(props) {
     const productId = props.match.params.productId
 
     useEffect(() => {
-        console.log(Product)
         Axios.get(`/api/product/products_by_id?id=${productId}&type=single`)
         .then(response =>{
             if(response.data.success){
@@ -25,7 +24,7 @@ function DetailedProductPage(props) {
             }
         })
     
-    },[Product,productId])
+    },[])
 
     const addToCartHandler = (productId) => {
         dispatch(addToCart(productId))
