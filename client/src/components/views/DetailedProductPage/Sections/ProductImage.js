@@ -7,7 +7,6 @@ function ProductImage(props) {
     const [Images,setImages] = useState([])
 
     useEffect(() => {
-
         if(props.detail.images && props.detail.images.length > 0){
             const images = []
     

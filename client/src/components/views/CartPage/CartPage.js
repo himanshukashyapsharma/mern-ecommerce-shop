@@ -16,7 +16,6 @@ function CartPage(props) {
 
     // to fetch data of all the items in cart
     useEffect(() => {
-
         let cartItems = []
         if(props.user.userData && props.user.userData.cart){
             if(props.user.userData.cart.length > 0){
