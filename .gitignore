@@ -1,12 +1,9 @@
 /node_modules
 /build
-/uploads
 
 dev.js
 
 .env
-.jpg
-.png
 
 .DS_Store
 
