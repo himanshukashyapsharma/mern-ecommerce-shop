@@ -6,6 +6,7 @@ import Axios from "axios"
 function FileUpload(props) {
 
     const [images,setImages] = useState([])
+    const [imagesName,setImagesName] = useState([])
 
     function onDrop(files){
         let formData = new FormData()
@@ -19,6 +20,8 @@ function FileUpload(props) {
             if(response.data.success){
                 setImages([...images, response.data.image])
                 props.refreshFunction([...images, response.data.image])
+                setImagesName([...imagesName, response.data.fileName])
+                props.nameRefreshFunction([...imagesName, response.data.fileName])
 
             }else{
                 alert('Failed to save the Image in Server')
@@ -29,6 +32,8 @@ function FileUpload(props) {
     function onDelete(index){
         setImages(images.filter((image,i) => i !== index))
         props.refreshFunction(images.filter((image,i) => i !== index)) 
+        setImagesName(imagesName.filter((imageName,i) => i !== index))
+        props.nameRefreshFunction(imagesName.filter((imageName,i) => i !== index)) 
     }
 
     return (

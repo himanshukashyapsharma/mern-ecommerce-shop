@@ -22,7 +22,8 @@ function UploadProductPage(props){
     const [descriptionValue,setDescriptionValue] = useState("")
     const [priceValue,setPriceValue] = useState(0)
     const [continentValue,setContinentValue] = useState(1)
-    const [images,setImages] = useState()  // should have [] probably
+    const [images,setImages] = useState()  // used to show images on client side only while uploading product
+    const [imagesName, setImagesName] = useState() // name goes to database
 
 
     function onTitleChange (event){
@@ -45,6 +46,10 @@ function UploadProductPage(props){
         setImages(newImages)
     }
 
+    function updateImagesName(newImagesName){
+        setImagesName(newImagesName)
+    }
+
     function onSubmit(event){
         event.preventDefault()
 
@@ -56,7 +61,7 @@ function UploadProductPage(props){
             title: titleValue,
             description: descriptionValue,
             price: priceValue,
-            images: images,
+            images: imagesName,
             continents: continentValue
          }
 
@@ -81,7 +86,7 @@ function UploadProductPage(props){
             </div>
             <Form onSubmit={onSubmit}>
                 {/*Dropzone */}
-                <FileUpload refreshFunction={updateImages}/><br /><br />
+                <FileUpload refreshFunction={updateImages} nameRefreshFunction={updateImagesName}/><br /><br />
                 <label>Title</label><br /><br />
                 <Input 
                     onChange={onTitleChange}

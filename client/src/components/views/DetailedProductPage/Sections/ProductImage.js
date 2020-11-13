@@ -13,8 +13,8 @@ function ProductImage(props) {
             props.detail.images.map((image) => {
                 return (
                     images.push({
-                        original: `https://mern-ecommerce-shop.herokuapp.com/${image}`,
-                        thumbnail: `https://mern-ecommerce-shop.herokuapp.com/${image}`
+                        original: `https://mern-ecommerce-shop.herokuapp.com/uploads/${image}`,
+                        thumbnail: `https://mern-ecommerce-shop.herokuapp.com/uploads/thumbnail_${image}`
                       })
                 )
                 

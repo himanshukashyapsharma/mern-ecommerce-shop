@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { Product } = require("../models/Product")
 const multer = require("multer")
+const sharp = require("sharp")
 
 const { auth } = require("../middleware/auth")
 
@@ -9,6 +10,7 @@ const { auth } = require("../middleware/auth")
 //             Product
 //=================================
 
+// store image
 var storage = multer.diskStorage({
     destination: (req,file,cb) => {
         cb(null,'uploads/')
@@ -18,6 +20,7 @@ var storage = multer.diskStorage({
     },
     fileFilter: (req,file,cb) => {
         const ext = path.extname(file.originalname)
+        console.log(ext)
         if(ext !== '.jpg' || ext !== '.png'){
             return cb(res.status(400).end('only .jpg, .png are allowed',false))
         }
@@ -26,13 +29,23 @@ var storage = multer.diskStorage({
 
 })
 
-var upload = multer({storage: storage}).single("file")
 
-router.post("/uploadImage",(req, res) => {
-    upload(req,res,err => {
-        if(err) return res.json({success: false, err})
-        return res.json({success: true, image: res.req.file.path, fileName: res.req.file.filename})
+// var upload = multer({storage: storage}).single("file")
+var upload = multer({storage: storage})
+
+router.post("/uploadImage",upload.single("file"),(req, res) => {
+    let compressedImageFilePath = `uploads/thumbnail_${req.file.filename}`
+    sharp(req.file.path)
+    .resize(480)
+    .toFile(compressedImageFilePath, (err, info) => {
+        if (err) res.send({success: false,err})
+        return res.json({success: true, image: req.file.path, fileName: req.file.filename})
     })
+    
+    // upload(req,res,err => {
+    //     if(err) return res.json({success: false, err})
+    //     return res.json({success: true, image: res.req.file.path, fileName: res.req.file.filename})
+    // })
 });
 
 router.post("/uploadProduct",auth,(req,res) => {
