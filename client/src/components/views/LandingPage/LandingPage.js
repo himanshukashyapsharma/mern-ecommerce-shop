@@ -83,15 +83,17 @@ function LandingPage() {
 
     function handleFilters(filters, category){
         const newFilters = {...Filters}
-        newFilters[category] = filters
+
+        if(category === "continent"){
+            newFilters[category] = filters
+        }
 
         if(category === "price"){
             let priceValues = handlePrice(filters)
             newFilters[category] = priceValues
         }
-        
         showFilteredResults(newFilters)
-        setFilters(newFilters)
+        setFilters(newFilters)      
     }
 
     function updateSearchTerm(newSearchTerm){

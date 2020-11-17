@@ -39,6 +39,7 @@ function UploadProductPage(props){
     }
 
     function onContinentSelectChange(event){
+        console.log(event.target.value)
         setContinentValue(event.target.value)
     }
 
@@ -62,7 +63,7 @@ function UploadProductPage(props){
             description: descriptionValue,
             price: priceValue,
             images: imagesName,
-            continents: continentValue
+            continent: continentValue
          }
 
         Axios.post('/api/product/uploadProduct',variables)
