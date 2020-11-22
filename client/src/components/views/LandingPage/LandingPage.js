@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Axios from "axios"
 import {Link} from 'react-router-dom'
-import {Icon,Row,Col,Card} from "antd"
+import {Icon,Row,Col,Card,Button} from "antd"
 import ImageSlider from "../../utils/ImageSlider"
 import CheckBox from "./Sections/CheckBox"
 import RadioBox from "./Sections/RadioBox"
@@ -21,6 +21,10 @@ function LandingPage() {
         price: []
     })
     const [SearchTerms, setSearchTerms] = useState()
+
+    const customCardStyle = {
+        boxShadow: "2px 2px 5px #E8E8E8"
+    }
     
     useEffect(() => {
         const variables = {
@@ -111,48 +115,54 @@ function LandingPage() {
     }
     
     return (
-        <div style={{width: '75%',margin: '3rem auto'}}>
-            <div style={{textAlign: 'center'}}>
-                <h2>Let's Travel The World <Icon type="rocket" /></h2>
-            </div>
+        <div style={{width: '100%',margin: '0 auto'}}>
 
-            <Row gutter={[16,16]}>
-                <Col lg={12} xs={24}>
-                    <CheckBox 
-                    list={continent}
-                    handleFilters={filters => handleFilters(filters, "continent")}/>
-                </Col>
-                <Col lg={12} xs={24}>
-                    <RadioBox 
-                    list={price}
-                    handleFilters={filters => handleFilters(filters, "price")}/>
-                </Col>
-            </Row>
+            <div style={{backgroundColor: "#F3EED9", margin: '0 auto', padding: '0 12.5%'}}>
 
+                <div style={{textAlign: 'center', padding: '32px 0 0 16px'}}>
+                    <h2>Let's Travel The World <Icon type="rocket" /></h2>
+                </div>
+                <Row gutter={[16,16]}>
+                    <Col lg={12} xs={24}>
+                        <CheckBox 
+                        list={continent}
+                        handleFilters={filters => handleFilters(filters, "continent")}/>
+                    </Col>
+                    <Col lg={12} xs={24}>
+                        <RadioBox 
+                        list={price}
+                        handleFilters={filters => handleFilters(filters, "price")}/>
+                    </Col>
+                </Row>
 
-            <div style={{display: 'flex', justifyContent: 'flex-end', margin: '1rem auto'}}>
-                <SearchFeature
-                    refreshFunction={updateSearchTerm}
-                 />
+                <div style={{display: 'flex', justifyContent: 'flex-end', margin: '1rem auto',backgroundColor: "#F3EED9",paddingBottom: "16px"}}>
+                    <SearchFeature
+                        refreshFunction={updateSearchTerm}
+                    />
+                </div>
             </div>
             
 
             {Products.length === 0 ?
-            <div style={{display: 'flex', height: '300px',justifyContent: 'center',alignItems: 'center'}}>
+            <div style={{display: 'flex',width: '75%', height: '300px',justifyContent: 'center',alignItems: 'center',margin: '0 auto'}}>
                 <h2>No Post yet...</h2>
             </div>:
-            <div>
+            <div style={{width: '75%', margin: '0 auto'}}>
                 <Row gutter={[16,16]}>
                     {Products.map((product,index)=>{
                         return <Link key={index} to={{pathname: `/product/${product._id}`}}>
                                     <Col key={index} lg={6} md={8} xs={24}>
                                         <Card
+                                            style={customCardStyle}
                                             hoverable={true}
                                             cover={<ImageSlider images={product.images} />}
                                         >
                                             <Meta
                                                 title={product.title}
-                                                description={`$${product.price}`}></Meta>
+                                                description={`$${product.price}`}
+                                            >
+                                            </Meta>
+                                            <Button style={{float: "right" ,backgroundColor:"#ff4d4f",borderColor:"#ff4d4f"}} type="primary" shape="round">View</Button>
                                         </Card>
                                     </Col>
                                 </Link>
@@ -165,9 +175,9 @@ function LandingPage() {
             {
             PostSize >= Limit &&
             <div style={{display: 'flex',justifyContent: 'center'}}>
-                <button
+                <Button style={{backgroundColor:"#ff4d4f",borderColor:"#ff4d4f"}} type="primary" shape="round"
                     onClick={onLoadMore}
-                >Load More</button>
+                >Load More</Button>
             </div>
             }
         </div>
