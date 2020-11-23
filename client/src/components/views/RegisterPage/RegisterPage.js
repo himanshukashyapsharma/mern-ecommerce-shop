@@ -185,7 +185,7 @@ function RegisterPage(props) {
               </Form.Item>
 
               <Form.Item {...tailFormItemLayout}>
-                <Button onClick={handleSubmit} type="primary" disabled={isSubmitting}>
+                <Button onClick={handleSubmit} type="danger" disabled={isSubmitting}>
                   Submit
                 </Button>
               </Form.Item>

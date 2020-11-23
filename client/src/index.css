@@ -15,8 +15,7 @@ body {
   font-family: 'Roboto Mono', monospace; 
   font-size: 14px;
   line-height: 1.5;
-  color: #24292e;
-  background-color: whitesmoke;
+  color: #A9A9A9;
 }
 
 .app {
@@ -43,10 +42,15 @@ table{
   border-collapse: collapse;
   width: 100%;
   text-align: left;
+  background-color: #F3EED9;
+}
+
+th{
+  background-color: #dddddd;
 }
 
 td,th{
-  border: 1px solid #dddddd;
+  border: 1px solid #e6e6e6;
   text-align: left;
   padding: 8px;
 }

@@ -5,6 +5,7 @@ import ProductInfo from './Sections/ProductInfo'
 import Axios from 'axios'
 import {addToCart} from '../../../_actions/user_actions'
 import {useDispatch} from 'react-redux'
+import './detailedProductPage.css'
 
 
 function DetailedProductPage(props) {
@@ -18,7 +19,6 @@ function DetailedProductPage(props) {
         .then(response =>{
             if(response.data.success){
                 setProduct(response.data.product)
-                console.log(response.data.product)
             }else{
                 alert('failed to fetch product data')
             }
@@ -27,16 +27,20 @@ function DetailedProductPage(props) {
     },[])
 
     const addToCartHandler = (productId) => {
-        dispatch(addToCart(productId))
+        if(props.user && props.user.userData && props.user.userData.isAuth){
+            dispatch(addToCart(productId))
+        } else {
+            props.history.push("/login")
+        }
     }
 
     return (
         <React.Fragment>
             {Product !== "" && 
-                <div className="postPage" style={{width: '100%', padding: '3rem 4rem'}}>   
-                    <div style={{display: 'flex', justifyContent: 'center'}} >
-                        <h1>{Product.title}</h1>
-                     </div>
+                <div className="product-page">   
+                    {/* <div style={{display: 'flex', justifyContent: 'center'}} >
+                        <h1 style={{color: '#323333'}}>{Product.title}</h1>
+                     </div> */}
                     <br />
                     <Row gutter={[16,16]}>
                         <Col lg={12} xs={24}>

@@ -1,4 +1,5 @@
 import React from 'react'
+import {Button} from 'antd'
 
 function UserCardBlock(props) {
     return (
@@ -6,9 +7,10 @@ function UserCardBlock(props) {
             <table>
                 <thead>
                     <tr>
-                        <th>Product Image</th>
-                        <th>Product Quantity</th>
-                        <th>Product Price</th>
+                        <th>Image</th>
+                        <th>Location</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
                         <th>Remove from Cart</th>
                     </tr>
                         {props.cartItems && props.cartItems.length > 0 &&
@@ -20,12 +22,19 @@ function UserCardBlock(props) {
                                                 <img 
                                                     style={{width: '70px'}} 
                                                     alt={`${item.title}`}
-                                                    src={`https://mern-ecommerce-shop.herokuapp.com/${item.images[0]}`} 
+                                                    src={`https://mern-ecommerce-shop.herokuapp.com/uploads/thumbnail_${item.images[0]}`} 
                                                 />
                                             </td>
+                                            <td>{item.title}</td>
                                             <td>{item.quantity}</td>
                                             <td>{item.price}$</td>
-                                            <td><button onClick={() => { props.handleRemoveFromCart(item._id)}}>Remove</button></td>
+                                            <td style={{textAlign: 'center'}}><Button 
+                                                    onClick={() => { props.handleRemoveFromCart(item._id)}}
+                                                    type="danger"
+                                                >
+                                                    Remove
+                                                </Button>
+                                            </td>
                                         </tr>
                                         
                                     </React.Fragment>

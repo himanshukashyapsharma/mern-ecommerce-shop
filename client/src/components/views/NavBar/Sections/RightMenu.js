@@ -5,6 +5,7 @@ import axios from 'axios';
 import { USER_SERVER } from '../../../Config';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import './Navbar.css'
 
 function RightMenu(props) {
   const user = useSelector(state => state.user)
@@ -44,8 +45,8 @@ function RightMenu(props) {
             </Menu.Item>
           }      
           <Menu.Item key="cart">
-            <Badge count={user.userData && user.userData.cart.length}>
-              <a href="/user/cart" style={{marginRight: -22, color: '#667777'}}>
+            <Badge count={user.userData && user.userData.cart.length} style={{marginRight: 6}}>
+              <a href="/user/cart" className="cart-link">
                 <Icon type="shopping-cart" style={{ fontSize: 30, marginBottom: 4}} />
               </a>
             </Badge>

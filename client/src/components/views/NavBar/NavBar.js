@@ -14,16 +14,8 @@ function NavBar() {
   })
 
   useEffect(() => {
-    // let newNavStyle = navStyle
     let nav = document.querySelector("#nav")
     window.addEventListener('scroll', () => {
-      // this method creates a sudden trasition rather than a smooth one
-      // if(window.pageYOffset < 300){
-      //   setNavStyle({...newNavStyle, height: '50px'})
-      //   setNavStyle({...newNavStyle})
-      // } else{
-      //   setNavStyle({...navStyle, height: '0px'})
-      // }
       if(window.pageYOffset < 300){
         nav.classList.remove("hide-nav")
       }else{

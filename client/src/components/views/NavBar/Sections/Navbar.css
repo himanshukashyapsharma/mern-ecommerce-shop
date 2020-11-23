@@ -88,9 +88,27 @@
   padding: 14px 24px !important;
 }
 
+.ant-menu{
+  background-color: #FF4D4F;
+}
+
+.cart-link{
+  margin-right: -22px;
+  color: 'whitesmoke'
+}
+
 @media (max-width: 767px) {
   .menu__mobile-button {
     display: inline-block !important;
+  }
+
+  .ant-menu{
+    background-color: whitesmoke;
+  }
+
+  .cart-link{
+    color: rgba(0, 0, 0, 0.65);
+    margin-right: 0;
   }
 
   .menu_left,
@@ -111,3 +129,4 @@
     padding: 10px 20px;
   }
 }
+

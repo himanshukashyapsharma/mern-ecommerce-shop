@@ -1,0 +1,36 @@
+.ant-descriptions *{
+    color: #323333;
+}
+
+.ant-descriptions-title{
+    font-weight: 800;
+    font-size: 24px;
+    background-color: #dddddd;
+    padding: 5px 10px 0 5px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.ant-descriptions-item-label{
+    font-weight: 600;
+    line-height: 30px;
+}
+
+.product-info{
+    background-color: #e6e6e6;
+    border-radius: 5px;
+    min-height: 400px;
+    /* padding-bottom: 5px; */
+}
+
+.product-page{
+    width: 100%;
+    padding: 3rem 4rem;
+    background-color: #F3EED9;
+    color: #808080;
+}
+
+@media only screen and (max-width: 400px){
+    .product-page{
+        padding: 1rem 1.5rem;
+    }
+}

@@ -78,16 +78,17 @@ router.get("/logout", auth, (req, res) => {
 
 router.post("/addToCart",auth,(req,res) => {
         // console.log("inside add to cart")
+        // console.log("look_here",req.user._id)
 
     User.findOne({_id: req.user._id},(err, userInfo) => {
         let duplicate = false
-        console.log(userInfo)
+        // console.log(userInfo)
         userInfo.cart !== undefined && userInfo.cart.forEach((cartInfo) => {
             if(cartInfo.id === req.query.productId){
                 duplicate = true
-                console.log("duplicate item.")
+                // console.log("duplicate item.")
             } else {
-                console.log("not duplicate")
+                // console.log("not duplicate")
             }
         })
 

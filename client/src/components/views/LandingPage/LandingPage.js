@@ -23,7 +23,9 @@ function LandingPage() {
     const [SearchTerms, setSearchTerms] = useState()
 
     const customCardStyle = {
-        boxShadow: "2px 2px 5px #E8E8E8"
+        boxShadow: "2px 2px 5px #E8E8E8",
+        maxWidth: "247px",
+        margin: '0 auto'
     }
     
     useEffect(() => {
@@ -148,10 +150,10 @@ function LandingPage() {
                 <h2>No Post yet...</h2>
             </div>:
             <div style={{width: '75%', margin: '0 auto'}}>
-                <Row gutter={[16,16]}>
+                <Row gutter={[8,24]} justify="center">
                     {Products.map((product,index)=>{
                         return <Link key={index} to={{pathname: `/product/${product._id}`}}>
-                                    <Col key={index} lg={6} md={8} xs={24}>
+                                    <Col key={index} xl={6} lg={8} md={12} sm={12} xs={24}>
                                         <Card
                                             style={customCardStyle}
                                             hoverable={true}
